@@ -54,6 +54,6 @@ for author in authors:
     federalistByAuthorTokens[author] = (token for token in tokens
                                         if any(c.isalpha() for c in token))
 #get distribution of token lengths
-tokenLengths = [len(token) for token in federalistByAuthorTokens[author]]
-federalistByAuthorLengthDistributions[author] = nltk.FreqDist(tokenLengths)
-federalistByAuthorLengthDistributions[author].plot(15,title=author)
+    tokenLengths = [len(token) for token in federalistByAuthorTokens[author]]
+    federalistByAuthorLengthDistributions[author] = nltk.FreqDist(tokenLengths)
+    federalistByAuthorLengthDistributions[author].plot(15,title=author)
