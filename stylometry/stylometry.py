@@ -1,5 +1,8 @@
 import nltk
+nltk.download('punkt')
 import matplotlib
+#%matplotlib inline
+import matplotlib.pyplot as plt
 
 #prepare data for analysis 
 
@@ -33,3 +36,24 @@ for author, files in papers.items():
 
 for author in papers:
     print(federalistByAuthor[author][:100])
+
+#Mendenhall's Characteristic Cursves of Composition Test
+
+#compare papers to those written by others 
+authors = ("Hamilton", "Madison", "Disputed", "Jay", "Shared")
+
+#Transform corpora into lists of word tokens
+federalistByAuthorTokens = {}
+federalistByAuthorLengthDistributions = {}
+for author in authors:
+    tokens = nltk.word_tokenize(federalistByAuthor[author]) 
+#nltk's tokenise method chops corpus into component tokens 
+#filters out non words, creates list containing lengths of every work token left over 
+#creates frequency distribution of words by word length then plots graph
+    #filter punctiation
+    federalistByAuthorTokens[author] = (token for token in tokens
+                                        if any(c.isalpha() for c in token))
+#get distribution of token lengths
+tokenLengths = [len(token) for token in federalistByAuthorTokens[author]]
+federalistByAuthorLengthDistributions[author] = nltk.FreqDist(tokenLengths)
+federalistByAuthorLengthDistributions[author].plot(15,title=author)
