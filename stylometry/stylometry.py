@@ -57,3 +57,47 @@ for author in authors:
     tokenLengths = [len(token) for token in federalistByAuthorTokens[author]]
     federalistByAuthorLengthDistributions[author] = nltk.FreqDist(tokenLengths)
     federalistByAuthorLengthDistributions[author].plot(15,title=author)
+
+#Chi-Squared Method of Analysis
+ 
+#Authors to be anlyzed
+authors = ("Hamilton", "Madison")
+
+#Make the tokens lowercase to avoid counting as separate words
+
+for author in authors:
+    federalistByAuthorTokens[author] = (
+        [token.lower() for token in federalistByAuthorTokens[author]])
+    federalistByAuthorTokens["Disputed"] = (
+        [token.lower() for token in federalistByAuthorTokens["Disputed"]])
+#Calculate the Chi-Squared for each of the two authors
+for author in authors:
+    #build a joint corpus and identify 500 most frequen words 
+    jointCorpus = (federalistByAuthorTokens[author] +
+                   federalistByAuthorTokens["Disputed"])
+    jointFrequencyDistance = nltk.FreqDist(jointCorpus)
+    mostCommon = list(jointFrequencyDistance.most_common(500))
+    #proportion of joint corpus made up by candidate author's tokens
+    authorShare = (len(federalistByAuthorTokens[author]) / len(jointCorpus))
+
+    #500 most common words in candidate's corpus, compare number of times they 
+    #are observed to see what expected if author and disputed papers 
+    #both random from same distribution 
+    chisquared = 0
+    for word,jointCount in mostCommon:
+        #how often word is found 
+        authorCount = federalistByAuthorTokens[author].count(word)
+        disputedCount = federalistByAuthorTokens["Disputed"].count(word)
+
+        #how often it should be found 
+        expectedAuthorCount = jointCount * authorShare
+        expectedDisputedCount = jointCount * (1-authorShare)
+
+        #Sum of word contribution to Chi_Squared statistic
+        chisquared += ((authorCount-expectedAuthorCount) *
+                       (authorCount-expectedAuthorCount) /
+                       expectedAuthorCount)
+        chisquared += ((disputedCount-expectedDisputedCount) *
+                       (disputedCount-expectedDisputedCount) /
+                        expectedDisputedCount)
+        print("Chi-Squared Statistic for ", author, " is", chisquared)
