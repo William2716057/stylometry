@@ -1,6 +1,7 @@
 import nltk
 import matplotlib
 
+#prepare data for analysis 
 
 #dictionary where names of authors are keys and paper numbers are values 
 papers = {
@@ -18,7 +19,17 @@ papers = {
 def readFilesToString(filenames):
     strings = []
     for filename in filenames:
-        with open(f'data/federalist_{filename}.txt', 'r') as f:
+        with open(f'stylometry-federalist/data/federalist_{filename}.txt', 'r') as f:
             strings.append(f.read())
     return '\n'.join(strings)
 
+#build data structure by calling readFilesToString function and passing it to different list of papers each time
+#then store results into other dictionary 
+
+#create dictionary from author's collection of texts 
+federalistByAuthor = {}
+for author, files in papers.items():
+    federalistByAuthor[author] = readFilesToString(files)
+
+for author in papers:
+    print(federalistByAuthor[author][:100])
