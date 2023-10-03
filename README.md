@@ -1,5 +1,6 @@
 # stylometry
-
+A python script that performs text analysis on the US Federalist Papers written by Alexander Hamilton, James Madison and John Jay between 1787 and 1788.
+It determines authorship by performing analysis on word patterns in their writings and then creating distribution plots of the results.
 ![Hamilton](https://github.com/William2716057/stylometry/assets/77903649/f750f865-7cca-4cfd-b32a-b29b234dd1dc)
 ![Madison](https://github.com/William2716057/stylometry/assets/77903649/51a81721-59b6-48aa-b603-3e0e466e4fed)
 ![Disputed](https://github.com/William2716057/stylometry/assets/77903649/28f237d7-e5a0-4159-af06-0295c3e467b3)
