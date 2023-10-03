@@ -1,6 +1,8 @@
 import nltk
 import matplotlib
 
+
+#dictionary where names of authors are keys and paper numbers are values 
 papers = {
     'Madison': [10, 14, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48],
     'Hamilton': [1, 6, 7, 8, 9, 11, 12, 13, 15, 16, 17, 21, 22, 23, 24,
@@ -12,3 +14,11 @@ papers = {
     'Disputed': [49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 62, 63],
     'TestCase': [64]
 }
+#function that takes all text associated with an author into one string
+def readFilesToString(filenames):
+    strings = []
+    for filename in filenames:
+        with open(f'data/federalist_{filename}.txt', 'r') as f:
+            strings.append(f.read())
+    return '\n'.join(strings)
+
