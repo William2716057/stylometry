@@ -22,7 +22,7 @@ papers = {
 def readFilesToString(filenames):
     strings = []
     for filename in filenames:
-        with open(f'stylometry-federalist/data/federalist_{filename}.txt', 'r') as f:
+        with open(f'"PATH_TO_FILE"/federalist_{filename}.txt', 'r') as f:
             strings.append(f.read())
     return '\n'.join(strings)
 
