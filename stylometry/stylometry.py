@@ -22,7 +22,7 @@ papers = {
 def readFilesToString(filenames):
     strings = []
     for filename in filenames:
-        with open(f'"PATH_TO_FILE"/federalist_{filename}.txt', 'r') as f:
+        with open(f'stylometry-federalist/data/federalist_{filename}.txt', 'r') as f:
             strings.append(f.read())
     return '\n'.join(strings)
 
@@ -101,3 +101,20 @@ for author in authors:
                        (disputedCount-expectedDisputedCount) /
                         expectedDisputedCount)
         print("Chi-Squared Statistic for ", author, " is", chisquared)
+
+        #John Borrow's Delta Method
+
+        #Authors being analysed 
+    authors = ("Hamilton", "Madison", "Jay", "Disputed", "Shared")
+
+        #Change text to lowercase to prevent tokens being counted as separate words
+    for author in authors:
+        federalistByAuthorTokens[author] = (
+            [tok.lower() for tok in federalistByAuthorTokens[author]])
+entireCorpus = []
+for author in authors:
+    entireCorpus += federalistByAuthorTokens[author]
+
+#frequency distribution 
+entireCorpusFrequencyDistribution = list(nltk.FreqDist(entireCorpus).most_common(30))
+entireCorpusFrequencyDistribution[ :10]
